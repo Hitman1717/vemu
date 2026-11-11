@@ -1,0 +1,134 @@
+3. Installation of Google App Engine and Creation of a Hello World Web Application
+
+
+
+Aim
+
+To install the Google App Engine (GAE) SDK on Ubuntu and to run a Python "Hello World" web application locally.
+
+
+
+Software Required
+
+Google Cloud SDK (App Engine components), Python 3 with venv, Flask and Gunicorn.
+
+
+
+Procedure
+
+1. Install the Google Cloud SDK, restart the shell and add the App Engine Python component:
+
+curl https://sdk.cloud.google.com | bash
+
+exec -l $SHELL
+
+gcloud components install app-engine-python
+
+
+
+2. Install the packages needed for the Python 3 virtual environment:
+
+sudo apt update
+
+sudo apt install python-is-python3 python3-venv python3-virtualenv
+
+
+
+3. Create a project directory:
+
+mkdir gae-hello-python
+
+cd gae-hello-python
+
+
+
+4. Create the file main.py:
+
+nano main.py
+
+
+
+Type the following program:
+
+from flask import Flask
+
+app = Flask(__name__)
+
+
+
+@app.route('/')
+
+def hello():
+
+    return 'Hello, World! This is Google App Engine.'
+
+save (Ctrl + O, Enter), and exit (Ctrl + X)
+
+
+5. Create the configuration file app.yaml:
+
+nano app.yaml
+
+
+
+Type the following configuration, save, and exit:
+
+runtime: python312
+
+ctrl + O, enter, ctrl + X
+
+
+6. Create the file requirements.txt:
+
+nano requirements.txt
+
+
+
+Type the following dependencies, save, and exit:
+
+Flask==2.3.3
+
+gunicorn==21.2.0
+
+ctrl + O, enter, ctrl + X
+
+
+7. Set up the virtual environment and install the required dependencies:
+
+python -m venv venv
+
+source venv/bin/activate
+
+pip install -r requirements.txt
+
+
+
+8. Start the local development server:
+
+gunicorn -b :8080 main:app
+
+
+
+9. Open a browser and visit http://localhost:8080. The message from the application is displayed.
+
+
+
+Note: The legacy dev_appserver.py is bypassed here in favor of running Gunicorn directly, which provides better compatibility with modern Python 3.12 environments on Ubuntu.
+
+
+
+OUTPUT:
+
+[INFO] Starting gunicorn 21.2.0
+
+[INFO] Listening at: http://0.0.0.0:8080
+
+[INFO] Using worker: sync
+
+[INFO] Booting worker with pid: 14032
+
+
+
+Result:
+
+The Google App Engine SDK was installed and the Python Hello World application was run on the local development server. The message was displayed in the browser at localhost:8080.

@@ -1,0 +1,32 @@
+5. Installation of a Hadoop Single Node Cluster and Execution of the Word Count
+
+Aim
+To install Hadoop as a single node (pseudo-distributed) cluster on Ubuntu and to run the WordCount example program.
+
+Software Required
+Ubuntu 22.04.5 LTS (VM), OpenJDK 8, SSH and Apache Hadoop 3.3.6.
+
+1. Update packages and install Java
+sudo apt update && sudo apt install -y openjdk-8-jdk
+
+2. Download and extract Hadoop
+wget https://dlcdn.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz
+tar -xzf hadoop-3.3.6.tar.gz
+
+3. Set JAVA_HOME
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+
+4. Create the input file
+nano input.txt
+hello hadoop hello cloud hadoop world
+
+Save and exit nano: Ctrl+O, Enter, Ctrl+X
+
+5. Run the Hadoop WordCount example
+hadoop-3.3.6/bin/hadoop jar hadoop-3.3.6/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.6.jar wordcount input.txt out
+
+6. Display the output
+cat out/part-r-00000
+
+Result
+The Hadoop single node cluster was installed and all five daemons (NameNode, DataNode, SecondaryNameNode, ResourceManager and NodeManager) were started. The WordCount program was run on HDFS and gave the count of each word as cloud 1, hadoop 2, hello 2 and world 1.

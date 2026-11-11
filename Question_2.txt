@@ -1,0 +1,56 @@
+2. Installation of a C Compiler in the Virtual Machine and Execution of Simple Programs
+
+Aim
+To install a C compiler (GCC) in the Ubuntu virtual machine created using VirtualBox and to execute simple C programs.
+
+Software Required
+Ubuntu 22.04.5 LTS (VirtualBox VM from Experiment 1) and GCC (GNU Compiler Collection).
+
+Procedure
+A. Installing the compiler
+1. Open a terminal in the VM using Ctrl + Alt + T.
+2. Update the package index:
+   sudo apt update
+3. Install the build-essential package, which provides gcc, g++ and make:
+   sudo apt install build-essential -y
+4. Verify the installation:
+   gcc --version
+
+B. Program 1: Hello World
+5. Create the source file with the nano editor:
+   nano hello.c
+6. Type the following program. Save with Ctrl + O, Enter and exit with Ctrl + X.
+
+#include <stdio.h>
+
+int main() {
+    printf("Hello, World!\n");
+    return 0;
+}
+
+7. Compile and run the program:
+   gcc hello.c -o hello
+   ./hello
+
+C. Program 2: Sum of two numbers
+8. Create the second source file:
+   nano sum.c
+9. Type the following program and save it:
+
+#include <stdio.h>
+
+int main() {
+    int a, b, sum;
+    printf("Enter two numbers: ");
+    scanf("%d %d", &a, &b);
+    sum = a + b;
+    printf("Sum = %d\n", sum);
+    return 0;
+}
+
+10. Compile and run the program, then enter two numbers when prompted:
+    gcc sum.c -o sum
+    ./sum
+
+Result
+GCC was installed on the Ubuntu virtual machine. The C programs for displaying a greeting and for adding two numbers were compiled and executed, and they produced the expected output.

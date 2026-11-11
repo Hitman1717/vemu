@@ -1,0 +1,56 @@
+4. Transfer of Files from One Virtual Machine to Another Virtual Machine
+
+Aim
+To transfer a file from one Ubuntu virtual machine to another using SCP (Secure Copy over SSH) between two VirtualBox VMs running on the same PC.
+
+Software Required
+Oracle VirtualBox 7.2.16, two Ubuntu 22.04.5 LTS virtual machines (VM1 receiver, VM2 sender), OpenSSH server and the scp command.
+
+Procedure
+A. Placing both VMs on the same network
+1. Power off both virtual machines.
+2. In VirtualBox select a VM and open Settings -> Network -> Adapter 1.
+3. Set Attached to as Bridged Adapter and select the Wi-Fi or Ethernet card in the Name box.
+4. Repeat the same for the second VM and start both machines.
+
+B. Installing the SSH server (on both VMs)
+5. Update the package index and install the server:
+   sudo apt update
+   sudo apt install -y openssh-server
+6. Enable and start the service, then check that its status is active (running):
+   sudo systemctl enable --now ssh
+   systemctl status ssh
+
+C. Finding the IP address and user name (on VM2)
+7. Display the IP address and the user name:
+   hostname -I
+   whoami
+8. Create a test file and view its contents:
+   echo "Hello from VM2" > ~/transfer.txt
+   cat ~/transfer.txt
+
+D. Copying the file (on VM1)
+9. Check the connection to VM2 using its IP address:
+   ping -c 3 192.168.137.239
+10. Copy the file from VM2. Type yes for the host fingerprint question and then enter the password of VM2. A line showing 100% confirms the transfer:
+    scp user2@192.168.137.239:~/transfer.txt ~/
+11. Verify the received file:
+    ls -l ~/transfer.txt
+    cat ~/transfer.txt
+12. To send a file or a folder from VM1 to VM2 use the following (the option -r copies a folder):
+    scp ~/reply.txt user2@192.168.137.239:~/
+    scp -r ~/myfolder user2@192.168.137.239:~/
+
+Alternative method: VirtualBox shared folder
+13. Create a folder on the host, for example C:\shared.
+14. In VirtualBox open Settings -> Shared Folders -> Add, choose the folder and tick Auto-mount.
+15. In each VM install the guest utilities, add the user to the vboxsf group and reboot:
+    sudo apt install -y virtualbox-guest-utils
+    sudo usermod -aG vboxsf $USER
+    sudo reboot
+16. The shared folder is now available at /media/sf_shared. On VM2 copy the file in, and on VM1 copy it out:
+    cp ~/transfer.txt /media/sf_shared/
+    cp /media/sf_shared/transfer.txt ~/
+
+Result
+The file transfer.txt was copied from VM2 to VM1 using SCP over SSH and the received file was verified on VM1. The VirtualBox shared folder method is an alternative way of transferring files.

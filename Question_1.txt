@@ -1,0 +1,28 @@
+1. Installation of VirtualBox and Creation of an Ubuntu Virtual Machine
+
+Aim
+To install Oracle VirtualBox on a Windows host and to create a virtual machine running Ubuntu 22.04 LTS.
+
+Software and Files Required
+- Oracle VirtualBox 7.2.16 (amd64) installer for Windows
+- Ubuntu 22.04.5 LTS desktop ISO image (ubuntu-22.04.5-desktop-amd64.iso)
+
+Procedure
+A. Installing VirtualBox
+1. Run the VirtualBox installer. On the welcome screen click Next.
+2. Select “I accept the terms of the license agreement” and click Next.
+3. In Custom Setup, keep all features selected (USB Support, Networking and Python Support). The default location is C:\Program Files\Oracle\VirtualBox\. Click Next.
+4. When warned that the network connection will be interrupted during installation, click Yes.
+5. Keep the startup options selected (Start menu entry, desktop shortcut, and file association for .ova and .ovf) and click Next.
+6. Click Install and wait for the files to be copied.
+7. Click Finish to complete installation and start VirtualBox.
+
+B. Creating and configuring the virtual machine
+8. In VirtualBox Manager click New. Enter the VM name as Ubuntu, choose the VM folder and select the downloaded Ubuntu ISO image. The OS type is detected as Linux (Ubuntu, 64-bit). Keep “Proceed with Unattended Installation” ticked.
+9. Enter the user name and password for the guest OS, keep the host name as Ubuntu, tick Install Guest Additions and click Next.
+10. Set the hardware: Base Memory 4000 MB, 2 CPUs and a virtual disk of 25 GB. Click Next.
+11. Check the summary and click Finish. The VM starts and Ubuntu is installed automatically from the ISO image.
+12. After installation the VM restarts and the Ubuntu desktop with the Welcome screen appears.
+
+Result
+VirtualBox was installed on the Windows host and an Ubuntu 22.04 virtual machine was created and booted successfully.
